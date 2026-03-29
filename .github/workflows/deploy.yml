@@ -23,13 +23,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+      
+      # 👇 Устанавливаем pnpm
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
       
       - name: Install dependencies
-        run: npm install  # 👈 Используем npm install вместо npm ci
+        run: pnpm install  # 👈 Используем pnpm вместо npm
       
       - name: Build
-        run: npm run build
+        run: pnpm run build  # 👈 Используем pnpm run build
       
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -42,5 +46,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
       - id: deployment
         uses: actions/deploy-pages@v4
