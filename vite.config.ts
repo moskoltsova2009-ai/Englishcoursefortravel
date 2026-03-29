@@ -4,19 +4,27 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
+  // 👇 Базовый путь для GitHub Pages
+  // Формат: /имя-репозитория/
+  // Важно: если репозиторий называется Englishcoursefortravel, 
+  // сайт будет доступен по /Englishcoursefortravel/
+  base: '/Englishcoursefortravel/',
+  
   plugins: [
-    // The React and Tailwind plugins are both required for Make, even if
-    // Tailwind is not being actively used – do not remove them
     react(),
     tailwindcss(),
   ],
   resolve: {
     alias: {
-      // Alias @ to the src directory
       '@': path.resolve(__dirname, './src'),
     },
   },
-
-  // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
+  
+  // 👇 Опционально: явное указание папки сборки (по умолчанию 'dist')
+  build: {
+    outDir: 'dist',
+    // 👇 Удаляем папку dist перед каждой сборкой (полезно для чистого деплоя)
+    emptyOutDir: true,
+  },
 })
